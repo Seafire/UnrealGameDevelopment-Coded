@@ -11,3 +11,6 @@
 #ifndef BATTERYCOLLECTOR_BatteryCollectorGameMode_generated_h
 	#include "BatteryCollectorGameMode.h"
 #endif
+#ifndef BATTERYCOLLECTOR_PickUp_generated_h
+	#include "PickUp.h"
+#endif

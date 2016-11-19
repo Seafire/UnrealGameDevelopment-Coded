@@ -17,17 +17,29 @@ void EmptyLinkFunctionForGeneratedCode1BatteryCollector() {}
 	{
 	}
 	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 655305550);
+	void APickUp::StaticRegisterNativesAPickUp()
+	{
+		FNativeFunctionRegistrar::RegisterFunction(APickUp::StaticClass(), "IsActive",(Native)&APickUp::execIsActive);
+		FNativeFunctionRegistrar::RegisterFunction(APickUp::StaticClass(), "SetActive",(Native)&APickUp::execSetActive);
+	}
+	IMPLEMENT_CLASS(APickUp, 1282229515);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_ACharacter();
 	ENGINE_API class UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 	ENGINE_API class UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API class UClass* Z_Construct_UClass_AGameMode();
+	ENGINE_API class UClass* Z_Construct_UClass_AActor();
+	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_APickUp_IsActive();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_APickUp_SetActive();
+	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_APickUp_NoRegister();
+	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_APickUp();
 	BATTERYCOLLECTOR_API class UPackage* Z_Construct_UPackage__Script_BatteryCollector();
 	UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister()
 	{
@@ -120,6 +132,98 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_ABatteryCollectorGameMode(Z_Construct_UClass_ABatteryCollectorGameMode, &ABatteryCollectorGameMode::StaticClass, TEXT("ABatteryCollectorGameMode"), false, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ABatteryCollectorGameMode);
+	UFunction* Z_Construct_UFunction_APickUp_IsActive()
+	{
+		struct PickUp_eventIsActive_Parms
+		{
+			bool ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_APickUp();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("IsActive"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x14020401, 65535, sizeof(PickUp_eventIsActive_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(ReturnValue, PickUp_eventIsActive_Parms, bool);
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(ReturnValue, PickUp_eventIsActive_Parms), 0x0010000000000580, CPP_BOOL_PROPERTY_BITMASK(ReturnValue, PickUp_eventIsActive_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Pickup"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("PickUp.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Return if the pickup is active"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UFunction* Z_Construct_UFunction_APickUp_SetActive()
+	{
+		struct PickUp_eventSetActive_Parms
+		{
+			bool NewPickUpState;
+		};
+		UObject* Outer=Z_Construct_UClass_APickUp();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("SetActive"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(PickUp_eventSetActive_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(NewPickUpState, PickUp_eventSetActive_Parms, bool);
+			UProperty* NewProp_NewPickUpState = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("NewPickUpState"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(NewPickUpState, PickUp_eventSetActive_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(NewPickUpState, PickUp_eventSetActive_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Pickup"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("PickUp.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Allows other classes to saftly change whether or not the pickup is active"));
+#endif
+		}
+		return ReturnFunction;
+	}
+	UClass* Z_Construct_UClass_APickUp_NoRegister()
+	{
+		return APickUp::StaticClass();
+	}
+	UClass* Z_Construct_UClass_APickUp()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_AActor();
+			Z_Construct_UPackage__Script_BatteryCollector();
+			OuterClass = APickUp::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+				OuterClass->LinkChild(Z_Construct_UFunction_APickUp_IsActive());
+				OuterClass->LinkChild(Z_Construct_UFunction_APickUp_SetActive());
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_PickUpMesh = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("PickUpMesh"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(PickUpMesh, APickUp), 0x00400000000a001d, Z_Construct_UClass_UStaticMeshComponent_NoRegister());
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_APickUp_IsActive(), "IsActive"); // 4128623409
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_APickUp_SetActive(), "SetActive"); // 4213752938
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("PickUp.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("PickUp.h"));
+				MetaData->SetValue(OuterClass, TEXT("OnlyDefaultConstructorDeclared"), TEXT(""));
+				MetaData->SetValue(NewProp_PickUpMesh, TEXT("AllowPrivateAccess"), TEXT("true"));
+				MetaData->SetValue(NewProp_PickUpMesh, TEXT("Category"), TEXT("Pickup"));
+				MetaData->SetValue(NewProp_PickUpMesh, TEXT("EditInline"), TEXT("true"));
+				MetaData->SetValue(NewProp_PickUpMesh, TEXT("ModuleRelativePath"), TEXT("PickUp.h"));
+				MetaData->SetValue(NewProp_PickUpMesh, TEXT("ToolTip"), TEXT("Static Mesh to repesent the pickup in the level"));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_APickUp(Z_Construct_UClass_APickUp, &APickUp::StaticClass, TEXT("APickUp"), false, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(APickUp);
 	UPackage* Z_Construct_UPackage__Script_BatteryCollector()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -128,8 +232,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x8939FC25;
-			Guid.B = 0xED8897AB;
+			Guid.A = 0xE1A1F960;
+			Guid.B = 0x0EF26154;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);
