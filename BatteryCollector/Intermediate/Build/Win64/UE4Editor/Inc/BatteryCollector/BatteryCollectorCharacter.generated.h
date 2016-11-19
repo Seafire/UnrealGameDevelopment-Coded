@@ -21,6 +21,31 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_NATIVE_BEGIN; \
 		this->CollectPickUps(); \
 		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execUpdatePower) \
+	{ \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_PowerChange); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->UpdatePower(Z_Param_PowerChange); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetCurrentPower) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetCurrentPower(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetInitialPower) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetInitialPower(); \
+		P_NATIVE_END; \
 	}
 
 
@@ -31,6 +56,31 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		this->CollectPickUps(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execUpdatePower) \
+	{ \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_PowerChange); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->UpdatePower(Z_Param_PowerChange); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetCurrentPower) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetCurrentPower(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execGetInitialPower) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetInitialPower(); \
 		P_NATIVE_END; \
 	}
 

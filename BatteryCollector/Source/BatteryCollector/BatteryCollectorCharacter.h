@@ -31,6 +31,21 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	/* Accessor function for intial power */
+	UFUNCTION(BlueprintPure, Category = "Power")
+		float GetInitialPower();
+
+	/* Accessor function for current power */
+	UFUNCTION(BlueprintPure, Category = "Power")
+		float GetCurrentPower();
+
+	/*
+	Function to update the characters power
+	* param PowerChange - This is the ammount to change the power by - can be positive or negative
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Power")
+		void UpdatePower(float PowerChange);
+
 protected:
 
 	/** Called for forwards/backward input */
@@ -66,6 +81,10 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "PickUps")
 	void CollectPickUps();
 
+	/* Starting power level of character */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power")
+	float InitialPower;
+
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -73,5 +92,11 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	/** Returns Collection Sphere **/
 	FORCEINLINE class USphereComponent* GetSphereComponent() const { return CollectionSphere; }
+
+private:
+
+	/* Current Power level of the character*/
+	UPROPERTY(VisibleAnywhere, Category = "Power")
+	float CharacterPower;
 };
 
