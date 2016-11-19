@@ -8,3 +8,12 @@ ABatteryPickUp::ABatteryPickUp()
 {
 	GetMesh()->SetSimulatePhysics(true);
 }
+
+void ABatteryPickUp::WasCollected_Implementation()
+{
+	// Use the base pickup behaviour
+	Super::WasCollected_Implementation();
+
+	// Destroy the battery
+	Destroy();
+}
