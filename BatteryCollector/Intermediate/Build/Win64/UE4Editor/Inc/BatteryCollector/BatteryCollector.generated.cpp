@@ -23,6 +23,10 @@ void EmptyLinkFunctionForGeneratedCode1BatteryCollector() {}
 		FNativeFunctionRegistrar::RegisterFunction(APickUp::StaticClass(), "SetActive",(Native)&APickUp::execSetActive);
 	}
 	IMPLEMENT_CLASS(APickUp, 1282229515);
+	void ABatteryPickUp::StaticRegisterNativesABatteryPickUp()
+	{
+	}
+	IMPLEMENT_CLASS(ABatteryPickUp, 2211685735);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_ACharacter();
@@ -40,6 +44,8 @@ void EmptyLinkFunctionForGeneratedCode1BatteryCollector() {}
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_APickUp_SetActive();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_APickUp_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_APickUp();
+	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryPickUp_NoRegister();
+	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryPickUp();
 	BATTERYCOLLECTOR_API class UPackage* Z_Construct_UPackage__Script_BatteryCollector();
 	UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister()
 	{
@@ -224,6 +230,38 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_APickUp(Z_Construct_UClass_APickUp, &APickUp::StaticClass, TEXT("APickUp"), false, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(APickUp);
+	UClass* Z_Construct_UClass_ABatteryPickUp_NoRegister()
+	{
+		return ABatteryPickUp::StaticClass();
+	}
+	UClass* Z_Construct_UClass_ABatteryPickUp()
+	{
+		static UClass* OuterClass = NULL;
+		if (!OuterClass)
+		{
+			Z_Construct_UClass_APickUp();
+			Z_Construct_UPackage__Script_BatteryCollector();
+			OuterClass = ABatteryPickUp::StaticClass();
+			if (!(OuterClass->ClassFlags & CLASS_Constructed))
+			{
+				UObjectForceRegistration(OuterClass);
+				OuterClass->ClassFlags |= 0x20900080;
+
+
+				OuterClass->StaticLink();
+#if WITH_METADATA
+				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
+				MetaData->SetValue(OuterClass, TEXT("IncludePath"), TEXT("BatteryPickUp.h"));
+				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("BatteryPickUp.h"));
+				MetaData->SetValue(OuterClass, TEXT("OnlyDefaultConstructorDeclared"), TEXT(""));
+#endif
+			}
+		}
+		check(OuterClass->GetClass());
+		return OuterClass;
+	}
+	static FCompiledInDefer Z_CompiledInDefer_UClass_ABatteryPickUp(Z_Construct_UClass_ABatteryPickUp, &ABatteryPickUp::StaticClass, TEXT("ABatteryPickUp"), false, nullptr, nullptr);
+	DEFINE_VTABLE_PTR_HELPER_CTOR(ABatteryPickUp);
 	UPackage* Z_Construct_UPackage__Script_BatteryCollector()
 	{
 		static UPackage* ReturnPackage = NULL;
@@ -232,8 +270,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xE1A1F960;
-			Guid.B = 0x0EF26154;
+			Guid.A = 0x1115B7AE;
+			Guid.B = 0x082EA900;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);
