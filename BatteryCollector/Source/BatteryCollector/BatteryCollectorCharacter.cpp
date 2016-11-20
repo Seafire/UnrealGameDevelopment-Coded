@@ -3,6 +3,7 @@
 #include "BatteryCollector.h"
 #include "BatteryCollectorCharacter.h"
 #include "PickUp.h"
+#include "BatteryPickUp.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ABatteryCollectorCharacter
@@ -145,6 +146,9 @@ void ABatteryCollectorCharacter::CollectPickUps()
 	TArray<AActor*> CollectedActors;
 	CollectionSphere->GetOverlappingActors(CollectedActors);
 
+	// Keep track of the collected power
+	float CollectedPower = 0.0f;
+
 	// For each Actor we collected
 	for (int32 iCollected = 0; iCollected < CollectedActors.Num(); ++iCollected)
 	{
@@ -156,9 +160,23 @@ void ABatteryCollectorCharacter::CollectPickUps()
 		{
 			// Call the pickup WasCollected function
 			TestPickUp->WasCollected();
+			// Check if pickup is battery
+			ABatteryPickUp* const TestBattery = Cast<ABatteryPickUp>(TestPickUp);
+
+			if(TestBattery)
+			{
+				// Increae the collected power
+				CollectedPower += TestBattery->GetPower();
+			}
+
 			// Deactive the Pickup
 			TestPickUp->SetActive(false);
 		}
+	}
+
+	if (CollectedPower > 0)
+	{
+		UpdatePower(CollectedPower);
 	}
 }
 

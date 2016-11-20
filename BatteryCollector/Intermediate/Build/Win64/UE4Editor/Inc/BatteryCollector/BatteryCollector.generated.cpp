@@ -21,7 +21,7 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	void ABatteryCollectorGameMode::StaticRegisterNativesABatteryCollectorGameMode()
 	{
 	}
-	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 655305550);
+	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 696070522);
 	void APickUp::WasCollected()
 	{
 		ProcessEvent(FindFunctionChecked(BATTERYCOLLECTOR_WasCollected),NULL);
@@ -256,6 +256,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x2088028C;
 
 
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_DecayRate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("DecayRate"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(DecayRate, ABatteryCollectorGameMode), 0x0020080000010005);
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassConfigName = FName(TEXT("Game"));
 				OuterClass->StaticLink();
 #if WITH_METADATA
@@ -265,6 +268,9 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
 				MetaData->SetValue(OuterClass, TEXT("OnlyDefaultConstructorDeclared"), TEXT(""));
 				MetaData->SetValue(OuterClass, TEXT("ShowCategories"), TEXT("Input|MouseInput Input|TouchInput"));
+				MetaData->SetValue(NewProp_DecayRate, TEXT("Category"), TEXT("Power"));
+				MetaData->SetValue(NewProp_DecayRate, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+				MetaData->SetValue(NewProp_DecayRate, TEXT("ToolTip"), TEXT("The rate the character loses power"));
 #endif
 			}
 		}
@@ -508,7 +514,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xEF9323E1;
+			Guid.A = 0x358D9689;
 			Guid.B = 0xCE201E80;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
