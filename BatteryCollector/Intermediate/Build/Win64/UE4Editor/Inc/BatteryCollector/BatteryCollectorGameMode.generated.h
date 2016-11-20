@@ -13,8 +13,28 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BATTERYCOLLECTOR_BatteryCollectorGameMode_generated_h
 
-#define BatteryCollector_Source_BatteryCollector_BatteryCollectorGameMode_h_9_RPC_WRAPPERS
-#define BatteryCollector_Source_BatteryCollector_BatteryCollectorGameMode_h_9_RPC_WRAPPERS_NO_PURE_DECLS
+#define BatteryCollector_Source_BatteryCollector_BatteryCollectorGameMode_h_9_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execGetPowerToWin) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetPowerToWin(); \
+		P_NATIVE_END; \
+	}
+
+
+#define BatteryCollector_Source_BatteryCollector_BatteryCollectorGameMode_h_9_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execGetPowerToWin) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(float*)Z_Param__Result=this->GetPowerToWin(); \
+		P_NATIVE_END; \
+	}
+
+
 #define BatteryCollector_Source_BatteryCollector_BatteryCollectorGameMode_h_9_INCLASS_NO_PURE_DECLS \
 	private: \
 	static void StaticRegisterNativesABatteryCollectorGameMode(); \

@@ -25,8 +25,9 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	IMPLEMENT_CLASS(ABatteryCollectorCharacter, 2641122951);
 	void ABatteryCollectorGameMode::StaticRegisterNativesABatteryCollectorGameMode()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorGameMode::StaticClass(), "GetPowerToWin",(Native)&ABatteryCollectorGameMode::execGetPowerToWin);
 	}
-	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 696070522);
+	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 309381292);
 	void APickUp::WasCollected()
 	{
 		ProcessEvent(FindFunctionChecked(BATTERYCOLLECTOR_WasCollected),NULL);
@@ -54,6 +55,7 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	ENGINE_API class UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 	ENGINE_API class UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API class UClass* Z_Construct_UClass_AGameMode();
+	UMG_API class UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 	ENGINE_API class UClass* Z_Construct_UClass_AActor();
 	ENGINE_API class UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	COREUOBJECT_API class UScriptStruct* Z_Construct_UScriptStruct_FVector();
@@ -66,6 +68,7 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_APickUp_IsActive();
@@ -274,6 +277,29 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_ABatteryCollectorCharacter(Z_Construct_UClass_ABatteryCollectorCharacter, &ABatteryCollectorCharacter::StaticClass, TEXT("ABatteryCollectorCharacter"), false, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ABatteryCollectorCharacter);
+	UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin()
+	{
+		struct BatteryCollectorGameMode_eventGetPowerToWin_Parms
+		{
+			float ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_ABatteryCollectorGameMode();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetPowerToWin"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(BatteryCollectorGameMode_eventGetPowerToWin_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(ReturnValue, BatteryCollectorGameMode_eventGetPowerToWin_Parms), 0x0010000000000580);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Power"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Returns power needed to win - Required by HUD"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_ABatteryCollectorGameMode_NoRegister()
 	{
 		return ABatteryCollectorGameMode::StaticClass();
@@ -291,10 +317,15 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x2088028C;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+				UProperty* NewProp_CurrentWidget = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("CurrentWidget"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(CurrentWidget, ABatteryCollectorGameMode), 0x0020080000000000, Z_Construct_UClass_UUserWidget_NoRegister());
+				UProperty* NewProp_HUDWidgetClass = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("HUDWidgetClass"), RF_Public|RF_Transient|RF_MarkAsNative) UClassProperty(CPP_PROPERTY_BASE(HUDWidgetClass, ABatteryCollectorGameMode), 0x0024080000010005, Z_Construct_UClass_UUserWidget_NoRegister(), UClass::StaticClass());
+				UProperty* NewProp_PowerToWin = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("PowerToWin"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(PowerToWin, ABatteryCollectorGameMode), 0x0020080000010005);
 				UProperty* NewProp_DecayRate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("DecayRate"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(DecayRate, ABatteryCollectorGameMode), 0x0020080000010005);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin(), "GetPowerToWin"); // 3803657417
 				OuterClass->ClassConfigName = FName(TEXT("Game"));
 				OuterClass->StaticLink();
 #if WITH_METADATA
@@ -304,6 +335,17 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(OuterClass, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
 				MetaData->SetValue(OuterClass, TEXT("OnlyDefaultConstructorDeclared"), TEXT(""));
 				MetaData->SetValue(OuterClass, TEXT("ShowCategories"), TEXT("Input|MouseInput Input|TouchInput"));
+				MetaData->SetValue(NewProp_CurrentWidget, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+				MetaData->SetValue(NewProp_CurrentWidget, TEXT("ToolTip"), TEXT("The Instance of the HUD"));
+				MetaData->SetValue(NewProp_HUDWidgetClass, TEXT("BlueprintProtected"), TEXT("true"));
+				MetaData->SetValue(NewProp_HUDWidgetClass, TEXT("Category"), TEXT("Power"));
+				MetaData->SetValue(NewProp_HUDWidgetClass, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+				MetaData->SetValue(NewProp_HUDWidgetClass, TEXT("ToolTip"), TEXT("The Widget class to use for the HUD"));
+				MetaData->SetValue(NewProp_PowerToWin, TEXT("BlueprintProtected"), TEXT("true"));
+				MetaData->SetValue(NewProp_PowerToWin, TEXT("Category"), TEXT("Power"));
+				MetaData->SetValue(NewProp_PowerToWin, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+				MetaData->SetValue(NewProp_PowerToWin, TEXT("ToolTip"), TEXT("The power needed to win the game"));
+				MetaData->SetValue(NewProp_DecayRate, TEXT("BlueprintProtected"), TEXT("true"));
 				MetaData->SetValue(NewProp_DecayRate, TEXT("Category"), TEXT("Power"));
 				MetaData->SetValue(NewProp_DecayRate, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
 				MetaData->SetValue(NewProp_DecayRate, TEXT("ToolTip"), TEXT("The rate the character loses power"));
@@ -550,8 +592,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x5FE4F81F;
-			Guid.B = 0x46F747E1;
+			Guid.A = 0xC44B477E;
+			Guid.B = 0x6DFBA990;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);
