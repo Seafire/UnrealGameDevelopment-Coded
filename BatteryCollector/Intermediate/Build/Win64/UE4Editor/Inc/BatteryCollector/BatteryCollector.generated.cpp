@@ -59,8 +59,9 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EBatteryPlayState(EBatte
 	void ASpawnVolume::StaticRegisterNativesASpawnVolume()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(ASpawnVolume::StaticClass(), "GetRandomPointsInVolume",(Native)&ASpawnVolume::execGetRandomPointsInVolume);
+		FNativeFunctionRegistrar::RegisterFunction(ASpawnVolume::StaticClass(), "SetSpawningActive",(Native)&ASpawnVolume::execSetSpawningActive);
 	}
-	IMPLEMENT_CLASS(ASpawnVolume, 3748304349);
+	IMPLEMENT_CLASS(ASpawnVolume, 2295289781);
 #if USE_COMPILED_IN_NATIVES
 // Cross Module References
 	ENGINE_API class UClass* Z_Construct_UClass_ACharacter();
@@ -94,6 +95,7 @@ static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EBatteryPlayState(EBatte
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryPickUp_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryPickUp();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ASpawnVolume_GetRandomPointsInVolume();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ASpawnVolume_SetSpawningActive();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ASpawnVolume_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ASpawnVolume();
 	BATTERYCOLLECTOR_API class UPackage* Z_Construct_UPackage__Script_BatteryCollector();
@@ -596,6 +598,30 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_ASpawnVolume_SetSpawningActive()
+	{
+		struct SpawnVolume_eventSetSpawningActive_Parms
+		{
+			bool bShouldSpawn;
+		};
+		UObject* Outer=Z_Construct_UClass_ASpawnVolume();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("SetSpawningActive"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x04020401, 65535, sizeof(SpawnVolume_eventSetSpawningActive_Parms));
+			CPP_BOOL_PROPERTY_BITMASK_STRUCT(bShouldSpawn, SpawnVolume_eventSetSpawningActive_Parms, bool);
+			UProperty* NewProp_bShouldSpawn = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("bShouldSpawn"), RF_Public|RF_Transient|RF_MarkAsNative) UBoolProperty(FObjectInitializer(), EC_CppProperty, CPP_BOOL_PROPERTY_OFFSET(bShouldSpawn, SpawnVolume_eventSetSpawningActive_Parms), 0x0010000000000080, CPP_BOOL_PROPERTY_BITMASK(bShouldSpawn, SpawnVolume_eventSetSpawningActive_Parms), sizeof(bool), true);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Spawning"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("SpawnVolume.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("This function toggles the spawning of pickups"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_ASpawnVolume_NoRegister()
 	{
 		return ASpawnVolume::StaticClass();
@@ -614,6 +640,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->ClassFlags |= 0x20900080;
 
 				OuterClass->LinkChild(Z_Construct_UFunction_ASpawnVolume_GetRandomPointsInVolume());
+				OuterClass->LinkChild(Z_Construct_UFunction_ASpawnVolume_SetSpawningActive());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_WhereToSpawn = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("WhereToSpawn"), RF_Public|RF_Transient|RF_MarkAsNative) UObjectProperty(CPP_PROPERTY_BASE(WhereToSpawn, ASpawnVolume), 0x00400000000a001d, Z_Construct_UClass_UBoxComponent_NoRegister());
@@ -622,6 +649,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_WhatToSpawn = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("WhatToSpawn"), RF_Public|RF_Transient|RF_MarkAsNative) UClassProperty(CPP_PROPERTY_BASE(WhatToSpawn, ASpawnVolume), 0x0024080000000001, Z_Construct_UClass_APickUp_NoRegister(), UClass::StaticClass());
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ASpawnVolume_GetRandomPointsInVolume(), "GetRandomPointsInVolume"); // 3192775651
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ASpawnVolume_SetSpawningActive(), "SetSpawningActive"); // 293631652
 				OuterClass->StaticLink();
 #if WITH_METADATA
 				UMetaData* MetaData = OuterClass->GetOutermost()->GetMetaData();
@@ -658,8 +686,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x82A43846;
-			Guid.B = 0x9CA77B7C;
+			Guid.A = 0xAD8DFFA1;
+			Guid.B = 0x82582967;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

@@ -27,6 +27,10 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Spawning")
 	FVector GetRandomPointsInVolume();
 
+	/* This function toggles the spawning of pickups */
+	UFUNCTION(BlueprintCallable, Category = "Spawning")
+	void SetSpawningActive(bool bShouldSpawn);
+
 protected:
 
 	/* The pickup to spawn */
