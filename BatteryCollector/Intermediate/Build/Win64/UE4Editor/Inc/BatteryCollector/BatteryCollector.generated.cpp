@@ -23,11 +23,24 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorCharacter::StaticClass(), "UpdatePower",(Native)&ABatteryCollectorCharacter::execUpdatePower);
 	}
 	IMPLEMENT_CLASS(ABatteryCollectorCharacter, 2641122951);
+static class UEnum* EBatteryPlayState_StaticEnum()
+{
+	extern BATTERYCOLLECTOR_API class UPackage* Z_Construct_UPackage__Script_BatteryCollector();
+	static class UEnum* Singleton = NULL;
+	if (!Singleton)
+	{
+		extern BATTERYCOLLECTOR_API class UEnum* Z_Construct_UEnum_BatteryCollector_EBatteryPlayState();
+		Singleton = GetStaticEnum(Z_Construct_UEnum_BatteryCollector_EBatteryPlayState, Z_Construct_UPackage__Script_BatteryCollector(), TEXT("EBatteryPlayState"));
+	}
+	return Singleton;
+}
+static FCompiledInDeferEnum Z_CompiledInDeferEnum_UEnum_EBatteryPlayState(EBatteryPlayState_StaticEnum, TEXT("/Script/BatteryCollector"), TEXT("EBatteryPlayState"), false, nullptr, nullptr);
 	void ABatteryCollectorGameMode::StaticRegisterNativesABatteryCollectorGameMode()
 	{
+		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorGameMode::StaticClass(), "GetCurrentState",(Native)&ABatteryCollectorGameMode::execGetCurrentState);
 		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorGameMode::StaticClass(), "GetPowerToWin",(Native)&ABatteryCollectorGameMode::execGetPowerToWin);
 	}
-	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 309381292);
+	IMPLEMENT_CLASS(ABatteryCollectorGameMode, 2228869828);
 	void APickUp::WasCollected()
 	{
 		ProcessEvent(FindFunctionChecked(BATTERYCOLLECTOR_WasCollected),NULL);
@@ -68,6 +81,8 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter();
+	BATTERYCOLLECTOR_API class UEnum* Z_Construct_UEnum_BatteryCollector_EBatteryPlayState();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetCurrentState();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorGameMode();
@@ -277,6 +292,55 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 	}
 	static FCompiledInDefer Z_CompiledInDefer_UClass_ABatteryCollectorCharacter(Z_Construct_UClass_ABatteryCollectorCharacter, &ABatteryCollectorCharacter::StaticClass, TEXT("ABatteryCollectorCharacter"), false, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ABatteryCollectorCharacter);
+	UEnum* Z_Construct_UEnum_BatteryCollector_EBatteryPlayState()
+	{
+		UPackage* Outer=Z_Construct_UPackage__Script_BatteryCollector();
+		extern uint32 Get_Z_Construct_UEnum_BatteryCollector_EBatteryPlayState_CRC();
+		static UEnum* ReturnEnum = FindExistingEnumIfHotReloadOrDynamic(Outer, TEXT("EBatteryPlayState"), 0, Get_Z_Construct_UEnum_BatteryCollector_EBatteryPlayState_CRC(), false);
+		if (!ReturnEnum)
+		{
+			ReturnEnum = new(EC_InternalUseOnlyConstructor, Outer, TEXT("EBatteryPlayState"), RF_Public|RF_Transient|RF_MarkAsNative) UEnum(FObjectInitializer());
+			TArray<TPair<FName, uint8>> EnumNames;
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("EBatteryPlayState::EPlaying")), 0));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("EBatteryPlayState::EGameOver")), 1));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("EBatteryPlayState::EWon")), 2));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("EBatteryPlayState::EUnknown")), 3));
+			EnumNames.Add(TPairInitializer<FName, uint8>(FName(TEXT("EBatteryPlayState::EBatteryPlayState_MAX")), 4));
+			ReturnEnum->SetEnums(EnumNames, UEnum::ECppForm::EnumClass);
+			ReturnEnum->CppType = TEXT("EBatteryPlayState");
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnEnum->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnEnum, TEXT("BlueprintType"), TEXT("true"));
+			MetaData->SetValue(ReturnEnum, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+			MetaData->SetValue(ReturnEnum, TEXT("ToolTip"), TEXT("enum to store the current state of gameplay"));
+#endif
+		}
+		return ReturnEnum;
+	}
+	uint32 Get_Z_Construct_UEnum_BatteryCollector_EBatteryPlayState_CRC() { return 756115500U; }
+	UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetCurrentState()
+	{
+		struct BatteryCollectorGameMode_eventGetCurrentState_Parms
+		{
+			TEnumAsByte<EBatteryPlayState> ReturnValue;
+		};
+		UObject* Outer=Z_Construct_UClass_ABatteryCollectorGameMode();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("GetCurrentState"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x54020401, 65535, sizeof(BatteryCollectorGameMode_eventGetCurrentState_Parms));
+			UProperty* NewProp_ReturnValue = new(EC_InternalUseOnlyConstructor, ReturnFunction, TEXT("ReturnValue"), RF_Public|RF_Transient|RF_MarkAsNative) UByteProperty(CPP_PROPERTY_BASE(ReturnValue, BatteryCollectorGameMode_eventGetCurrentState_Parms), 0x0010000000000580, Z_Construct_UEnum_BatteryCollector_EBatteryPlayState());
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Power"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorGameMode.h"));
+			MetaData->SetValue(ReturnFunction, TEXT("ToolTip"), TEXT("Return the current playing state"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin()
 	{
 		struct BatteryCollectorGameMode_eventGetPowerToWin_Parms
@@ -317,6 +381,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				UObjectForceRegistration(OuterClass);
 				OuterClass->ClassFlags |= 0x2088028C;
 
+				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorGameMode_GetCurrentState());
 				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
@@ -325,6 +390,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_PowerToWin = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("PowerToWin"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(PowerToWin, ABatteryCollectorGameMode), 0x0020080000010005);
 				UProperty* NewProp_DecayRate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("DecayRate"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(DecayRate, ABatteryCollectorGameMode), 0x0020080000010005);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorGameMode_GetCurrentState(), "GetCurrentState"); // 1710706952
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorGameMode_GetPowerToWin(), "GetPowerToWin"); // 3803657417
 				OuterClass->ClassConfigName = FName(TEXT("Game"));
 				OuterClass->StaticLink();
@@ -592,8 +658,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0xC44B477E;
-			Guid.B = 0x6DFBA990;
+			Guid.A = 0x82A43846;
+			Guid.B = 0x9CA77B7C;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);

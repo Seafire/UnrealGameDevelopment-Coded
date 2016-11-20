@@ -2,7 +2,7 @@
 	"TargetName" : "BatteryCollectorEditor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "d0c499fe-7887-4bac-a58e-e71d55e3d060",
+	"BuildId" : "",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
@@ -15,15 +15,15 @@
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-BatteryCollector-139.dll",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-BatteryCollector.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-BatteryCollector-139.pdb",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-BatteryCollector.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-BatteryCollector-139.lib",
+			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-BatteryCollector.lib",
 			"Type" : "ImportLibrary"
 		}
 	],
