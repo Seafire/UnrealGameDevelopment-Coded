@@ -9,7 +9,12 @@
 #include "BatteryCollector.generated.dep.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCode1BatteryCollector() {}
+FName BATTERYCOLLECTOR_PowerChangeEffect = FName(TEXT("PowerChangeEffect"));
 FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
+	void ABatteryCollectorCharacter::PowerChangeEffect()
+	{
+		ProcessEvent(FindFunctionChecked(BATTERYCOLLECTOR_PowerChangeEffect),NULL);
+	}
 	void ABatteryCollectorCharacter::StaticRegisterNativesABatteryCollectorCharacter()
 	{
 		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorCharacter::StaticClass(), "CollectPickUps",(Native)&ABatteryCollectorCharacter::execCollectPickUps);
@@ -17,7 +22,7 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorCharacter::StaticClass(), "GetInitialPower",(Native)&ABatteryCollectorCharacter::execGetInitialPower);
 		FNativeFunctionRegistrar::RegisterFunction(ABatteryCollectorCharacter::StaticClass(), "UpdatePower",(Native)&ABatteryCollectorCharacter::execUpdatePower);
 	}
-	IMPLEMENT_CLASS(ABatteryCollectorCharacter, 2220120060);
+	IMPLEMENT_CLASS(ABatteryCollectorCharacter, 2641122951);
 	void ABatteryCollectorGameMode::StaticRegisterNativesABatteryCollectorGameMode()
 	{
 	}
@@ -57,6 +62,7 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_CollectPickUps();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_GetCurrentPower();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_GetInitialPower();
+	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_PowerChangeEffect();
 	BATTERYCOLLECTOR_API class UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter_NoRegister();
 	BATTERYCOLLECTOR_API class UClass* Z_Construct_UClass_ABatteryCollectorCharacter();
@@ -137,6 +143,23 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_PowerChangeEffect()
+	{
+		UObject* Outer=Z_Construct_UClass_ABatteryCollectorCharacter();
+		static UFunction* ReturnFunction = NULL;
+		if (!ReturnFunction)
+		{
+			ReturnFunction = new(EC_InternalUseOnlyConstructor, Outer, TEXT("PowerChangeEffect"), RF_Public|RF_Transient|RF_MarkAsNative) UFunction(FObjectInitializer(), NULL, 0x08080800, 65535);
+			ReturnFunction->Bind();
+			ReturnFunction->StaticLink();
+#if WITH_METADATA
+			UMetaData* MetaData = ReturnFunction->GetOutermost()->GetMetaData();
+			MetaData->SetValue(ReturnFunction, TEXT("Category"), TEXT("Power"));
+			MetaData->SetValue(ReturnFunction, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorCharacter.h"));
+#endif
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower()
 	{
 		struct BatteryCollectorCharacter_eventUpdatePower_Parms
@@ -180,10 +203,13 @@ FName BATTERYCOLLECTOR_WasCollected = FName(TEXT("WasCollected"));
 				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorCharacter_CollectPickUps());
 				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorCharacter_GetCurrentPower());
 				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorCharacter_GetInitialPower());
+				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorCharacter_PowerChangeEffect());
 				OuterClass->LinkChild(Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower());
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 				UProperty* NewProp_CharacterPower = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("CharacterPower"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(CharacterPower, ABatteryCollectorCharacter), 0x0040000000020001);
+				UProperty* NewProp_BaseSpeed = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("BaseSpeed"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(BaseSpeed, ABatteryCollectorCharacter), 0x0020080000000005);
+				UProperty* NewProp_SpeedFactor = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("SpeedFactor"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(SpeedFactor, ABatteryCollectorCharacter), 0x0020080000000005);
 				UProperty* NewProp_InitialPower = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("InitialPower"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(InitialPower, ABatteryCollectorCharacter), 0x0020080000000005);
 				UProperty* NewProp_BaseLookUpRate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("BaseLookUpRate"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(BaseLookUpRate, ABatteryCollectorCharacter), 0x0010000000020015);
 				UProperty* NewProp_BaseTurnRate = new(EC_InternalUseOnlyConstructor, OuterClass, TEXT("BaseTurnRate"), RF_Public|RF_Transient|RF_MarkAsNative) UFloatProperty(CPP_PROPERTY_BASE(BaseTurnRate, ABatteryCollectorCharacter), 0x0010000000020015);
@@ -194,6 +220,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorCharacter_CollectPickUps(), "CollectPickUps"); // 3652173519
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorCharacter_GetCurrentPower(), "GetCurrentPower"); // 1388613022
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorCharacter_GetInitialPower(), "GetInitialPower"); // 1946302318
+				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorCharacter_PowerChangeEffect(), "PowerChangeEffect"); // 3445504088
 				OuterClass->AddFunctionToFunctionMapWithOverriddenName(Z_Construct_UFunction_ABatteryCollectorCharacter_UpdatePower(), "UpdatePower"); // 911025341
 				OuterClass->ClassConfigName = FName(TEXT("Game"));
 				OuterClass->StaticLink();
@@ -206,6 +233,15 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 				MetaData->SetValue(NewProp_CharacterPower, TEXT("Category"), TEXT("Power"));
 				MetaData->SetValue(NewProp_CharacterPower, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorCharacter.h"));
 				MetaData->SetValue(NewProp_CharacterPower, TEXT("ToolTip"), TEXT("Current Power level of the character"));
+				MetaData->SetValue(NewProp_BaseSpeed, TEXT("BlueprintProtected"), TEXT("true"));
+				MetaData->SetValue(NewProp_BaseSpeed, TEXT("Category"), TEXT("Power"));
+				MetaData->SetValue(NewProp_BaseSpeed, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorCharacter.h"));
+				MetaData->SetValue(NewProp_BaseSpeed, TEXT("ToolTip"), TEXT("Speed when power level is 0"));
+				MetaData->SetValue(NewProp_SpeedFactor, TEXT("BlueprintProtected"), TEXT("true"));
+				MetaData->SetValue(NewProp_SpeedFactor, TEXT("Category"), TEXT("Power"));
+				MetaData->SetValue(NewProp_SpeedFactor, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorCharacter.h"));
+				MetaData->SetValue(NewProp_SpeedFactor, TEXT("ToolTip"), TEXT("Multiplier for character speed"));
+				MetaData->SetValue(NewProp_InitialPower, TEXT("BlueprintProtected"), TEXT("true"));
 				MetaData->SetValue(NewProp_InitialPower, TEXT("Category"), TEXT("Power"));
 				MetaData->SetValue(NewProp_InitialPower, TEXT("ModuleRelativePath"), TEXT("BatteryCollectorCharacter.h"));
 				MetaData->SetValue(NewProp_InitialPower, TEXT("ToolTip"), TEXT("Starting power level of character"));
@@ -514,8 +550,8 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 			ReturnPackage = CastChecked<UPackage>(StaticFindObjectFast(UPackage::StaticClass(), NULL, FName(TEXT("/Script/BatteryCollector")), false, false));
 			ReturnPackage->SetPackageFlags(PKG_CompiledIn | 0x00000000);
 			FGuid Guid;
-			Guid.A = 0x358D9689;
-			Guid.B = 0xCE201E80;
+			Guid.A = 0x5FE4F81F;
+			Guid.B = 0x46F747E1;
 			Guid.C = 0x00000000;
 			Guid.D = 0x00000000;
 			ReturnPackage->SetGuid(Guid);
